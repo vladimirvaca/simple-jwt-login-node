@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const server = require('./src/main')
 const dbConnect = require('./src/libs/dbConnection')
 const port = process.env.PORT_SERVER || 3000
@@ -10,3 +12,4 @@ async function serverStart() {
 }
 
 serverStart()
+

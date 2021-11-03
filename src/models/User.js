@@ -6,17 +6,22 @@ const roles = {
   message: '{VALUE} not is a role.'
 }
 
-const UserSchema = Schema(
+const UserSchema = new Schema(
   {
     name: String,
     lastName: String,
     userName: {
       type: String,
-      dropDups: true
+      index: {
+        unique: true
+      }
     },
     email: {
       type: String,
-      required: [true]
+      required: [true],
+      index: {
+        unique: true
+      }
     },
     role: {
       type: String,
@@ -30,19 +35,10 @@ const UserSchema = Schema(
     },
     creationDate: String,
     modificationDate: String
-  },
-  {
-    toObject: {
-      transform: function (doc, ret) {
-        delete ret.password
-      }
-    },
-    toJSON: {
-      transform: function (doc, ret) {
-        delete ret.password
-      }
-    }
   }
 )
 
-module.exports = mongoose.model('user', UserSchema, 'user')
+const UserModel = mongoose.model('user', UserSchema, 'user')
+UserModel.createIndexes()
+
+module.exports = UserModel

@@ -1,13 +1,18 @@
 const mongoose = require('mongoose')
 
-const URI = 'mongodb://user:user@localhost:27017/sample-db'
-
+const URI = `mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`
 async function connection() {
   try {
-    await mongoose.connect(URI, {})
-    console.log('CONNECTED TO DATABASE => sample-db')
+    await mongoose.connect(URI, {
+      autoIndex: false,
+      auth: {
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD
+      }
+    })
+    console.info(`CONNECTED TO DATABASE => ${process.env.DB_NAME}`)
   } catch (error) {
-    console.log('DATABASE CONNECTION FAILED => ', error)
+    console.error(`DATABASE CONNECTION FAILED => ${error}`)
   }
 }
 
