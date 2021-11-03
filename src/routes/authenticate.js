@@ -21,22 +21,22 @@ router.post('/', async (req, res) => {
             message: 'User was authenticated.'
           })
         } else {
-          res.status(200).json({
+          res.status(401).json({
             status: true,
             message: 'Password incorrect.'
           })
         }
       } else {
-        throw {
+        res.status(401).json({
           status: 'error',
-          error: 'User does not exist '
-        }
+          error: 'User does not exist.'
+        })
       }
     } else {
-      throw {
+      res.status(400).json({
         status: 'error',
         error: 'Please provide all parameters [email, password].'
-      }
+      })
     }
   } catch (error) {
     res.status(500).json(error)

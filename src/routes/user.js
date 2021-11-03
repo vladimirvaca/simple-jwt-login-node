@@ -14,13 +14,13 @@ router.post('/register', async (req, res) => {
       await UserService.create(req.body)
       res.status(201).json({
         status: true,
-        message: 'User created succesful'
+        message: 'User created succesful.'
       })
     } else {
-      throw {
+      res.status(400).json({
         status: 'error',
-        error: 'Please provide all parameters [email, password]'
-      }
+        error: 'Please provide all parameters [email, password].'
+      })
     }
   } catch (error) {
     res.status(500).json(error)
@@ -31,7 +31,7 @@ router.get('/:page/:sizePage', verifyToken, async (req, res) => {
   try {
     res.status(200).json({
       status: true,
-      page: req.params.page,
+      page: req.params.page * 1,
       totalPages: Math.ceil(
         (await UserService.getCountUsers()) / req.params.sizePage
       ),

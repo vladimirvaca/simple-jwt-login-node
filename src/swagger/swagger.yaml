@@ -1,0 +1,147 @@
+swagger: "2.0"
+info:
+  description: "This is a sample to authenticate in node server with express and jwt."
+  version: "1.0.0"
+  title: "Simple login in node"
+  contact:
+    name: Vladimir Vaca
+    email: "ramvlay@gmail.com"
+    url: "https://rvladimirvm.gitlab.io/about-me/"
+schemes:
+  - http
+  - https
+basePath: "/v1.0/api"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+
+paths:
+  /authenticate:
+    post:
+      tags:
+        - Authenticate
+      summary: Authentication
+      description:
+        Authenticate a user
+      produces:
+        - "application/json"
+      parameters:
+        - name: Authentication object
+          in: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+            required:
+              - email
+              - password
+            example:
+              email: user@gmail.com
+              password: secretpassword
+          required: true
+      responses:
+        200:
+          description: User was authenticated.
+        400:
+          description: Please provide all parameters [email, password].
+        401:
+          description: Password incorrect. / User does not exist.
+        500:
+          description: Unexpeced error.
+
+  /user/register:
+    post:
+      tags:
+        - User
+      summary: Create
+      description:
+        Creation from a user
+      produces:
+        - "application/json"
+      parameters:
+        - name: Creation object
+          in: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+            required:
+              - email
+              - password
+            example:
+              email: user@gmail.com
+              password: secretpassword
+          required: true
+      responses:
+        201:
+          description: User created succesful.
+        400:
+          description: Please provide all parameters [email, password].
+        500:
+          description: Unexpeced error.
+
+  /user/{page}/{pageSize}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+      - User
+      summary: Get users
+      description: Get paginated users
+      produces:
+        - application/json
+      parameters:
+        - name: page
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: Number of page
+        - name: pageSize
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 5
+          description: Size of page
+      responses:
+        '200':
+          description: Succesful response.
+        '500':
+          description: Unexpected error.
+
+definitions:
+  User:
+    type: "object"
+    required:
+    - "email"
+    - "password"
+    properties:
+      name:
+        type: "string"
+      lastName:
+        type: "string"
+      userName:
+        type: "string"
+      email:
+        type: "string"
+      role:
+        type: "string"
+        enum:
+        - "ADMIN"
+        - "USER"
+      password:
+        type: "string"
+      creationDate:
+        type: "string"
+      modificationDate:
+        type: "string"
