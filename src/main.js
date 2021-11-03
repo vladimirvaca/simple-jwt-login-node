@@ -6,9 +6,9 @@ const app = express()
 const authenticate = require('./routes/authenticate')
 const user = require('./routes/user')
 
-const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./src/swagger/swagger.yaml');
+const swaggerUi = require('swagger-ui-express')
+const YAML = require('yamljs')
+const swaggerDocument = YAML.load('./src/swagger/swagger.yaml')
 
 
 app.use(morgan('dev'))
@@ -23,6 +23,6 @@ app.use(express.json())
 app.use('/v1.0/api/authenticate', authenticate)
 app.use('/v1.0/api/user', user)
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 module.exports = app
