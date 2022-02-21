@@ -13,6 +13,11 @@ It's a simple login microservice with jwt, nodejs and mongo
 ## Prerequisites
 
 You need have installed **Node** and **MongoDB** in your machine.
+And optional if you want run this application only for test purposes, you can use **Docker Desktop**.
+
+Additionally you need install this dependencies :
+
+`npm i -g eslint-cli` 
 
 ## Run server
 
@@ -43,6 +48,16 @@ await mongoose.connect(URI, {
   autoIndex: false,
 })
 ```
+
+## Running with docker
+
+You can test this application running from docker. 
+For make this, you need run this commands in order:
+
+1. `docker build --tag simple-jwt-login-node .`
+2. `docker-compose  -f docker-compose.yml  up --build`
+
+This will install and create all necesary to run the application. Then you can try in your browser acces to [simple-jwt-login-node](http://localhost:3000/api-docs)
 
 ## Documentation
 
