@@ -36,11 +36,11 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.5",
     "morgan": "^1.10.0",
-    "swagger-ui-express": "^4.1.6",
+    "swagger-ui-express": "^4.3.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12",
-    "husky": "^7.0.0"
+    "husky": "^7.0.4",
+    "nodemon": "^2.0.12"
   }
 }

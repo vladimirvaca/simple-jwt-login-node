@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db-mongo:
+    image: 'mongo'
+    container_name: 'mongo-db'
+    restart: always
+    ports:
+      - '27017-27019:27017-27019'
+    environment:
+      - MONGO_INITDB_DATABASE=sjln-db
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./../mongo-data-sjln:/data/db
+
+  simple-jwt-login-node:
+    image: 'simple-jwt-login-node'
+    container_name: 'simple-jwt-login-node'
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_USER=user
+      - DB_PASSWORD=user
+      - DB_NAME=sjln-db
+      - DB_HOST=db-mongo:27017
+      - JWT_PRIVATE_KEY=mysupersecretkey
+    depends_on:
+      - db-mongo
+    links:
+      - db-mongo
