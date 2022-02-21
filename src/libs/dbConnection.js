@@ -11,7 +11,8 @@ module.exports ={
         auth: {
           username: process.env.DB_USER,
           password: process.env.DB_PASSWORD
-        }
+        },
+        connectTimeoutMS: 15000
       })
       console.info(`CONNECTED TO DATABASE => ${process.env.DB_NAME}`)
     } catch (error) {
